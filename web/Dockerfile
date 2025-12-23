@@ -33,6 +33,7 @@ RUN chmod +x /entry.sh
 # ENTRYPOINT ["/entry.sh"]
 
 # # Change container permissions
+RUN mkdir -p /app/staticfiles /app/media /app/logs
 RUN chown -R www-data:www-data /app
 RUN chmod -R 755 /app
 RUN chmod -R 775 /app/staticfiles /app/media /app/logs
@@ -43,4 +44,4 @@ USER www-data
 ENTRYPOINT ["/entry.sh"]
 
 # Start the application using Gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:8006", "docker_portfolio.wsgi:application"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8006", "project.wsgi:application"]

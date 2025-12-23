@@ -11,7 +11,7 @@ services:
       - POSTGRES_DB=${DB_NAME}
       - POSTGRES_PORT=5432
     networks:
-      docker_portfolio_network:
+      social_media_network:
         ipv4_address: 172.35.0.2
   web:
     build: ./web
@@ -29,15 +29,15 @@ services:
       - db
     volumes:
       - ./web:/app
-      # - /srv/docker/docker_portfolio/staticfiles:/app/staticfiles
-      # - /srv/docker/docker_portfolio/media:/app/media
-      # - /srv/docker/docker_portfolio/logs:/app/logs
+      # - /srv/docker/social_media/staticfiles:/app/staticfiles
+      # - /srv/docker/social_media/media:/app/media
+      # - /srv/docker/social_media/logs:/app/logs
       - staticfiles:/app/staticfiles
       - media:/app/media
       - logs:/app/logs
 
     networks:
-      docker_portfolio_network:
+      social_media_network:
         ipv4_address: 172.35.0.3
 
 volumes:
@@ -47,7 +47,7 @@ volumes:
   logs:
 
 networks:
-  docker_portfolio_network:
+  social_media_network:
     driver: bridge
     ipam:
       config:
