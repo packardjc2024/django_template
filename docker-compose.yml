@@ -12,7 +12,7 @@ services:
       - POSTGRES_PORT=5432
     networks:
       social_media_network:
-        ipv4_address: 172.35.0.2
+        ipv4_address: 172.37.0.2
   web:
     build: ./web
     user: "33:33" # linux for www-data:www-data and docker uses linux vm"
@@ -38,7 +38,7 @@ services:
 
     networks:
       social_media_network:
-        ipv4_address: 172.35.0.3
+        ipv4_address: 172.37.0.3
 
 volumes:
   postgres_data:
@@ -51,4 +51,4 @@ networks:
     driver: bridge
     ipam:
       config:
-        - subnet: 172.35.0.0/16
+        - subnet: 172.37.0.0/16
