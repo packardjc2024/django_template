@@ -1,0 +1,7 @@
+[Error] Failed to load resource: the server responded with a status of 404 (Not Found) (static, line 0)
+[Error] Failed to load resource: the server responded with a status of 404 (Not Found) (favicon.ico, line 0)
+> let back = document.getElementById('back-end');
+< undefined
+> console.log(back.offsetWidth);
+[Log] 350
+< undefined

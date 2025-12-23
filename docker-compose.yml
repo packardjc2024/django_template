@@ -1,0 +1,54 @@
+services:
+  db:
+    build: ./db
+    restart: always
+    container_name: ${PROJECT_NAME}_db
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_PORT=5432
+    networks:
+      docker_portfolio_network:
+        ipv4_address: 172.35.0.2
+  web:
+    build: ./web
+    user: "33:33" # linux for www-data:www-data and docker uses linux vm"
+    restart: always
+    healthcheck:
+      test: ["CMD", "python3", "manage.py", "check"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    container_name: ${PROJECT_NAME}_web
+    ports:
+      - "${CONTAINER_PORT}:${CONTAINER_PORT}"
+    depends_on:
+      - db
+    volumes:
+      - ./web:/app
+      # - /srv/docker/docker_portfolio/staticfiles:/app/staticfiles
+      # - /srv/docker/docker_portfolio/media:/app/media
+      # - /srv/docker/docker_portfolio/logs:/app/logs
+      - staticfiles:/app/staticfiles
+      - media:/app/media
+      - logs:/app/logs
+
+    networks:
+      docker_portfolio_network:
+        ipv4_address: 172.35.0.3
+
+volumes:
+  postgres_data:
+  media:
+  staticfiles:
+  logs:
+
+networks:
+  docker_portfolio_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.35.0.0/16

@@ -1,0 +1,438 @@
+/***** Variable Definitions *****/
+:root{
+    --text-color: white;
+    --section-background: rgb(76, 145, 208, 0.4);
+    --section-border: solid rgb(255, 255, 255, 0.5) 1px;
+    --glass-border-color: rgb(255, 255, 255, 0.5);
+    --glass-background-color: rgb(255, 255, 255, 0.3);
+    --button-color: #0088cc;
+}
+
+
+/***** Page wide classes *****/
+*{
+    box-sizing: border-box;
+}
+
+.glass-container {
+    border-radius: 10px;
+    border: solid var(--glass-border-color) 1px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background: var(--glass-background-color);
+    color: var(--text-color);
+}
+
+.section-header {
+    width: 100%;
+    color: var(--text-color);
+    text-align: center;
+    margin: 10px;
+}
+
+.section {
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+    border-radius: 20px;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    background: var(--section-background);
+    border-radius: 10px;
+    border: var(--section-border);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+
+/***** Flip card classes *****/
+.flip-parent {
+    min-width: 300px;
+    min-height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    border-radius: 10px;
+}
+
+.flip-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    perspective: 1000px;
+    background: transparent;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .flip-card {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    transition: transform 1s;
+    transform-style: preserve-3d;
+    padding: 0;
+    margin:0;
+    border-radius: 10px;
+  }
+  
+  .flip-front, .flip-back {
+    backface-visibility: hidden;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    color: var(--text-color);
+    border-radius: 10px;
+  }
+
+  .flip-back {
+    /* start the back of the card flipped */
+    transform: rotateY(180deg);
+  }
+
+  .flip-back > div {
+    height: 100%;
+    width: 100%;
+  }
+
+
+/***** Welcome container *****/
+#welcome-section {
+    /* padding-top: 100px;
+    padding-bottom:100px; */
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#welcome-container {
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#hello-container, #name-container {
+    color: var(--text-color);
+    font-size: 60px;
+    background: transparent;
+    text-shadow: 0px 2px black;
+}
+
+.welcome-background {
+    background:
+        radial-gradient(circle at 20% 30%, rgb(76, 145, 208), transparent 40%), 
+        radial-gradient(circle at 80% 70%, rgb(145, 215, 254), transparent 40%), 
+        radial-gradient(circle at 50% 50%, rgb(191, 129, 105), transparent 40%), 
+        radial-gradient(circle at 30% 80%, rgb(206, 206, 206), transparent 40%), 
+        radial-gradient(circle at 70% 20%, rgb(95, 141, 75), transparent 40%);
+    background-color: rgb(28, 28, 28);
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+}
+
+
+/***** Typewriter effect *****/
+.caret-container{
+    border-right: 2px solid var(--text-color);
+    padding: 5px;
+    min-height: 70px;
+    animation: blink-caret 0.75s step-end infinite;
+}
+
+@keyframes blink-caret{
+    from, to {border-color: transparent;}
+    50% {border-color: var(--text-color);}
+}
+
+
+/***** About section classes *****/
+.about-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.about-card-parent > .flip-parent{
+    width: 100%;
+    height: 100%;
+}
+
+.about-card-parent, .skills-card-parent {
+    width: calc(50% - 20px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    gap: 20px;
+    margin: 10px;
+}
+
+.about-flip-back{
+    text-wrap: pretty;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.about-flip-front {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.head-shot-img {
+    height: 300px;
+    border-radius: 50%;
+    border: solid var(--glass-border-color) 1px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background: var(--glass-background-color);
+}
+
+
+/***** Skills section classes *****/
+.skills-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.skills-flip-front {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: var(--text-color);
+}
+
+.logos-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.moving-logo {
+    height: 75px;
+    position: absolute;
+    background: transparent;
+    margin: 0;
+    padding: 0;
+}
+
+
+/***** Projects section classes *****/
+.project-col {
+    min-height: 400px;
+    width: 400px;
+    border-radius: 10px;
+    margin: 10px;
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+    flex: 0 0 auto;
+}
+
+.project-cards-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    align-items: center;
+    justify-content: center;
+}
+
+.project-img {
+    /* height: 300px; */
+    height: auto;
+    border-radius: 6px;
+    max-width: 300px;
+}
+
+.project-row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button {
+    background: var(--button-color);
+    height: 30px;
+    width: 70px;
+    padding: 2px;
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    border: var(--button-color);
+    margin: 5px;
+}
+
+.button:hover {
+    background: transparent;
+    color: var(--button-color);
+}
+
+
+/***** Contact section classes *****/
+.contact-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+}
+
+.form-container{
+    min-width: 300px;
+    min-height: 300px;
+    max-width: 600px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/***** Media Queries for dynamic sizing *****/
+@media(min-width: 1435px){
+    .about-flip-card, .skills-flip-card{
+        width:400px;
+        min-height: 400px;
+    }
+    .about-card-parent, .skills-card-parent{
+        min-height: 400px;
+    }
+    .head-shot-img{
+        height: 400px;
+    }
+}
+
+@media(max-width: 1434px){
+    /* Drop single column restraint but decrease size */
+    .about-flip-card, .skills-flip-card{
+        width:300px;
+        min-height: 300px;
+    }
+    .about-card-parent, .skills-card-parent{
+        min-height: 300px;
+    }
+    .head-shot-img{
+        height: 300px;
+    }
+}
+
+@media(max-width: 1100px){
+    .about-flip-card, .skills-flip-card{
+        width:400px;
+        min-height: 400px;
+    }
+    .about-card-parent, .skills-card-parent{
+        width: 100%;
+        min-height: 400px;
+    }
+    .head-shot-img{
+        height: 400px;
+    }
+}
+
+@media (min-width: 763px){
+    body{
+        background-size: cover;
+        background-position: center;
+    }
+}
+
+@media(max-width: 762px){
+    /* optimize for phones */
+    #welcome-section{
+        margin-bottom: 100px !important;
+    }
+    .section {
+        width: 100%;
+        margin: 0 0 100px 0 !important;
+        padding: 0 !important;
+    }
+    .about-flip-card, .skills-flip-card{
+        width:300px;
+        min-height: 300px;
+    }
+    .about-card-parent, .skills-card-parent{
+        width: 100%;
+        min-height: 300px;
+        margin-top: 10px;
+        padding: 0;
+    }
+    .head-shot-img{
+        height: 300px;
+    }
+    .project-cards-container {
+        width:100% !important;
+        margin: 0;
+        padding: 5px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        overflow-x: hidden;
+        align-items: stretch;
+        justify-content: flex-start;
+    }
+    .project-col{
+        width: 100% !important;
+        padding: 0;
+        margin: 10px 0 10px 0;
+        flex: 0 0 100% !important;
+
+    }
+    .project-img{
+        width: 96%;
+        height: auto;
+    }
+    body {
+        background-repeat: repeat;
+    }
+    .form-container{
+        width: 100%;
+    }
+    .moving-logo{
+        height: 50px;
+    }
+}

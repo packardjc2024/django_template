@@ -1,0 +1,72 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Programming on Demand</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/android-chrome-192x192.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/android-chrome-512x512.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon.ico' %}">
+    <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}">
+    <!-- Bootstrap and JQuery-->
+    <script type="text/javascript" src="{% static 'jquery.js' %}"></script>
+    <script type="text/javascript" href="{% static 'bootstrap.bundle.min.js' %}"></script>
+    <link rel="stylesheet" type=text/css href="{% static 'bootstrap.min.css' %}">
+    <!-- Project level CSS and JS Files -->
+    <link rel="stylesheet" type="text/css" href='{% static "project.css" %}'>
+    <script type="text/javascript" src="{% static 'project.js' %}"></script>
+    <!-- Block for Apps to add CSS and JS Files -->
+    {% block header_extension %}
+    {% endblock %}
+    
+</head>
+
+<body>
+
+    <header class="fixed-top" id="header">
+        <div class="top-navbar navbar-background" id="top-navbar">
+            <div class="top-navbar-left-side">
+                <a class="img-link" href="{% url 'home_page:index' %}">
+                    <img id="pod-img" src="{% static 'site_pictures/pod_logo.png' %}" alt="Programming on Demand Logo">
+                </a>
+                <a class="header-text section-link" href="#welcome-section">Portfolio</a>
+            </div>
+            <!-- Medium screen and up navbar -->
+            <div class="top-navbar-right-side-large" id="normal-navbar">
+                <a class="header-text section-link" href="#about-section">About</a>
+                <a class="header-text section-link" href="#skills-section">Skills</a>
+                <a class="header-text section-link" href="#projects-section">Projects</a>
+                <a class="header-text section-link" href="#contact-section">Contact</a>
+            </div>
+            <!-- Small screen navbar -->
+            <div class="top-navbar-right-side-small dropdown-parent" id="dropdown-navbar">
+                <img src="{% static 'site_pictures/menu.svg' %}" height="30px" id="menu-button">
+                <div class="dropdown-container" id="dropdown-container">
+                    <a class="header-text section-link" href="#about-section">About</a>
+                    <a class="header-text section-link" href="#skills-section">Skills</a>
+                    <a class="header-text section-link" href="#projects-section">Projects</a>
+                    <a class="header-text section-link" href="#contact-section">Contact</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        {% block body_extension %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <div class="bottom-navbar">
+            <p id="copyright">&copy; Programming On Demand 2025</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
