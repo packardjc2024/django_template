@@ -29,12 +29,12 @@ services:
       - db
     volumes:
       - ./web:/app
-      # - /srv/docker/social_media/staticfiles:/app/staticfiles
-      # - /srv/docker/social_media/media:/app/media
-      # - /srv/docker/social_media/logs:/app/logs
-      - staticfiles:/app/staticfiles
-      - media:/app/media
-      - logs:/app/logs
+      - /srv/docker/social_media/staticfiles:/app/staticfiles
+      - /srv/docker/social_media/media:/app/media
+      - /srv/docker/social_media/logs:/app/logs
+      # - staticfiles:/app/staticfiles
+      # - media:/app/media
+      # - logs:/app/logs
 
     networks:
       social_media_network:
@@ -42,9 +42,9 @@ services:
 
 volumes:
   postgres_data:
-  media:
-  staticfiles:
-  logs:
+  # media:
+  # staticfiles:
+  # logs:
 
 networks:
   social_media_network:

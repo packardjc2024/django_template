@@ -27,25 +27,30 @@ docker compose up --build -d
 sudo groupadd staticgroup
 sudo usermod -aG staticgroup www-data
 
-PATH_DIRECTORIES=(
-    '/srv'
-    '/srv/docker' 
-)
-VOLUME_DIRECTORIES=(
-    "/srv/docker/${PROJECT_NAME}/staticfiles" 
-    "/srv/docker/${PROJECT_NAME}/media" 
-    "/srv/docker/${PROJECT_NAME}/logs" 
-)
+# PATH_DIRECTORIES=(
+#     '/srv'
+#     '/srv/docker' 
+# )
+# VOLUME_DIRECTORIES=(
+#     "/srv/docker/${PROJECT_NAME}/staticfiles" 
+#     "/srv/docker/${PROJECT_NAME}/media" 
+#     "/srv/docker/${PROJECT_NAME}/logs" 
+# )
 
-for path_directory in ${PATH_DIRECTORIES[@]}; do
-    sudo chown :staticgroup $path_directory
-    sudo chmod g+x $path_directory
-done
+# for path_directory in ${PATH_DIRECTORIES[@]}; do
+#     sudo chown :staticgroup $path_directory
+#     sudo chmod g+x $path_directory
+# done
 
-for volume_directory in ${VOLUME_DIRECTORIES[@]}; do
-    sudo chown -R :staticgroup $volume_directory
-    sudo chmod -R g+xwr $volume_directory
-done
+# for volume_directory in ${VOLUME_DIRECTORIES[@]}; do
+#     sudo chown -R :staticgroup $volume_directory
+#     sudo chmod -R g+xwr $volume_directory
+# done
+
+sudo mkdir -p /srv/docker/social_media/staticfiles
+sudo mkdir -p /srv/docker/social_media/media
+sudo mkdir -p /srv/docker/social_media/logs
+sudo chown -R www-data:www-data /srv/docker/social_media
 
 # Rebuild the containers
 docker compose down
