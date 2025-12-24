@@ -11,8 +11,11 @@ services:
       - POSTGRES_DB=${DB_NAME}
       - POSTGRES_PORT=5432
     networks:
-      social_media_network:
-        ipv4_address: 172.37.0.2
+      - app_network
+    # networks:
+    #   app_network:
+    #     ipv4_address: 172.${NETWORK_PORT}.0.3
+
   web:
     build: ./web
     user: "33:33" # linux for www-data:www-data and docker uses linux vm"
@@ -29,26 +32,23 @@ services:
       - db
     volumes:
       - ./web:/app
+      # Comment out when DEBUG = True:
       - /srv/docker/social_media/staticfiles:/app/staticfiles
       - /srv/docker/social_media/media:/app/media
       - /srv/docker/social_media/logs:/app/logs
-      # - staticfiles:/app/staticfiles
-      # - media:/app/media
-      # - logs:/app/logs
-
     networks:
-      social_media_network:
-        ipv4_address: 172.37.0.3
+      - app_network
+    # networks:
+    #   app_network:
+    #     ipv4_address: 172.${NETWORK_PORT}.0.3
 
 volumes:
   postgres_data:
-  # media:
-  # staticfiles:
-  # logs:
 
 networks:
-  social_media_network:
+  app_network:
+    name: ${NETWORK_NAME}
     driver: bridge
-    ipam:
-      config:
-        - subnet: 172.37.0.0/16
+    # ipam:
+    #   config:
+    #     - subnet: 172.${NETWORK_PORT}.0.0/16
