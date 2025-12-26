@@ -7,9 +7,9 @@ source .env
 cd /home/developer/${PROJECT_NAME}
 
 # Pull the GitHub repository
-git stash
-git pull https://${GH_USER}:${GH_TOKEN}@github.com/${GH_USER}/${PROJECT_NAME}
-git stash clear
+# git stash
+# git pull https://${GH_USER}:${GH_TOKEN}@github.com/${GH_USER}/${PROJECT_NAME}
+# git stash clear
 
 # Make sure permissions are still good for new update file
 sudo chmod u+x update.sh

@@ -1,6 +1,7 @@
 services:
   db:
-    build: ./db
+    build: 
+      context: ./db
     restart: always
     container_name: ${PROJECT_NAME}_db
     volumes:
@@ -12,12 +13,12 @@ services:
       - POSTGRES_PORT=5432
     networks:
       - app_network
-    # networks:
-    #   app_network:
-    #     ipv4_address: 172.${NETWORK_PORT}.0.3
 
   web:
-    build: ./web
+    build: 
+      context: ./web
+      args:
+        CONTAINER_PORT: ${CONTAINER_PORT}
     user: "33:33" # linux for www-data:www-data and docker uses linux vm"
     restart: always
     healthcheck:
@@ -33,14 +34,11 @@ services:
     volumes:
       - ./web:/app
       # Comment out when DEBUG = True:
-      - /srv/docker/social_media/staticfiles:/app/staticfiles
-      - /srv/docker/social_media/media:/app/media
-      - /srv/docker/social_media/logs:/app/logs
+      # - /srv/docker/social_media/staticfiles:/app/staticfiles
+      # - /srv/docker/social_media/media:/app/media
+      # - /srv/docker/social_media/logs:/app/logs
     networks:
       - app_network
-    # networks:
-    #   app_network:
-    #     ipv4_address: 172.${NETWORK_PORT}.0.3
 
 volumes:
   postgres_data:
@@ -49,6 +47,3 @@ networks:
   app_network:
     name: ${NETWORK_NAME}
     driver: bridge
-    # ipam:
-    #   config:
-    #     - subnet: 172.${NETWORK_PORT}.0.0/16

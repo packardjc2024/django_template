@@ -34,7 +34,7 @@ load_dotenv(SECRETS_PATH)
 SECRET_KEY = os.getenv('DJANGO_SECRET')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 USE_SRI = True
 SRI_ENABLED = True

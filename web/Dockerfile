@@ -1,6 +1,9 @@
 # Pull Python Image
 FROM python:3.13-slim
 
+ARG CONTAINER_PORT
+ENV CONTAINER_PORT=$CONTAINER_PORT
+
 # Set work directory
 WORKDIR /app
 
@@ -14,9 +17,6 @@ RUN pip3 install --upgrade pip
 COPY requirements.txt /app/
 RUN pip3 install -r requirements.txt
 
-# Expose the container's port to the nginx server
-EXPOSE 8006
-
 # Copy project
 COPY . /app
 
@@ -29,19 +29,15 @@ ENV PYTHONUNBUFFERED=1
 COPY entry.sh /entry.sh
 RUN chmod +x /entry.sh
 
-# Run the entrypoint bash file
-# ENTRYPOINT ["/entry.sh"]
-
 # # Change container permissions
 RUN mkdir -p /app/staticfiles /app/media /app/logs
 RUN chown -R www-data:www-data /app
 RUN chmod -R 755 /app
 RUN chmod -R 775 /app/staticfiles /app/media /app/logs
-# RUN chmod -R 777 /app
 USER www-data
 
 # Run the entrypoint bash file
 ENTRYPOINT ["/entry.sh"]
 
 # Start the application using Gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:8006", "project.wsgi:application"]
+CMD gunicorn --bind 0.0.0.0:$CONTAINER_PORT project.wsgi:application
