@@ -1,0 +1,9 @@
+# Prod specific volume locations
+# Replaces list, not appends so .web:/app is removed
+
+services:
+  web:
+    volumes:
+      - /srv/docker/social_media/staticfiles:/app/staticfiles
+      - /srv/docker/social_media/media:/app/media
+      - /srv/docker/social_media/logs:/app/logs

@@ -1,3 +1,6 @@
+# The base file (used only in dev)
+# Add "-f docker-compose.prod.yml" for Prod
+
 services:
   db:
     build: 
@@ -33,10 +36,6 @@ services:
       - db
     volumes:
       - ./web:/app
-      # Comment out when DEBUG = True:
-      # - /srv/docker/social_media/staticfiles:/app/staticfiles
-      # - /srv/docker/social_media/media:/app/media
-      # - /srv/docker/social_media/logs:/app/logs
     networks:
       - app_network
 

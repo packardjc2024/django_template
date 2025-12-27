@@ -1,8 +1,0 @@
-Change for new project:
-1. settings.py:
-    - allowed sites
-2. container port (.env/web Dockerfile)
-3. network ipv4_address (pg conf and docker compose)
-4. update nginx
-5. get certificate
-6. manually copy .env

@@ -1,4 +1,3 @@
 .gitignore
-deploy.sh
-env_template.txt
-update.sh
+run_prod.sh
+run_dev.sh
