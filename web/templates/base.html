@@ -28,43 +28,12 @@
 
 <body>
 
-    <header class="fixed-top" id="header">
-        <div class="top-navbar navbar-background" id="top-navbar">
-            <div class="top-navbar-left-side">
-                <a class="img-link" href="{% url 'home_page:index' %}">
-                    <img id="pod-img" src="{% static 'site_pictures/pod_logo.png' %}" alt="Programming on Demand Logo">
-                </a>
-                <a class="header-text section-link" href="#welcome-section">Portfolio</a>
-            </div>
-            <!-- Medium screen and up navbar -->
-            <div class="top-navbar-right-side-large" id="normal-navbar">
-                <a class="header-text section-link" href="#about-section">About</a>
-                <a class="header-text section-link" href="#skills-section">Skills</a>
-                <a class="header-text section-link" href="#projects-section">Projects</a>
-                <a class="header-text section-link" href="#contact-section">Contact</a>
-            </div>
-            <!-- Small screen navbar -->
-            <div class="top-navbar-right-side-small dropdown-parent" id="dropdown-navbar">
-                <img src="{% static 'site_pictures/menu.svg' %}" height="30px" id="menu-button">
-                <div class="dropdown-container" id="dropdown-container">
-                    <a class="header-text section-link" href="#about-section">About</a>
-                    <a class="header-text section-link" href="#skills-section">Skills</a>
-                    <a class="header-text section-link" href="#projects-section">Projects</a>
-                    <a class="header-text section-link" href="#contact-section">Contact</a>
-                </div>
-            </div>
-        </div>
-    </header>
-
     <main>
         {% block body_extension %}
         {% endblock %}
     </main>
 
     <footer>
-        <div class="bottom-navbar">
-            <p id="copyright">&copy; Programming On Demand 2025</p>
-        </div>
     </footer>
 
 </body>

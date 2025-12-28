@@ -19,7 +19,6 @@ sed -i '' 's|^DEBUG[[:space:]]*=[[:space:]]*False[[:space:]]*#Bash_Target|DEBUG 
 
 # Rebuild the containers
 docker compose down
-docker compose -f docker-compose.yml build --build-arg OFFLINE_BUILD=1
-docker compose -f docker-compose.yml up -d
+docker compose -f docker-compose.yml up --build -d
 
 exit
