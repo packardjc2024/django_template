@@ -3,3 +3,5 @@ __pycache__
 .DS_Store
 staticfiles/
 venv
+python_postgres_images.tar
+offline/

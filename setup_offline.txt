@@ -1,0 +1,148 @@
+# Pull the images and save as .tar file
+docker pull python:3.10-slim
+docker pull postgresql:18
+docker save -o python_postgres_images.tar python:3.10-slim postgres:18
+
+# Load the images from the .tar file
+docker load -i python_postgres_images.tar
+
+# Get the ubuntu packages:
+docker run --rm -it -v "$PWD/linux_packages:/packages" ubuntu 22.04 bash
+apt-get update
+apt-get install -y apt-rdepends
+cd packages
+rm -r *.deb
+apt-rdepends curl nano sudo postgresql-client \
+    | grep -v "^ " \
+    | grep -v "^PreDepends" \
+    | grep -Ev "(debconf-2.0)" \
+    | sort -u \
+    | xargs apt-get download
+
+# Check if images are already loaded and if not load
+if [[ "$(docker images -q postgres:18)" == "" ]]; then \
+    docker load -i postgres_image.tar; \
+else \
+    echo "postgres image already exists"; \
+fi
+
+# Install linux packages (on mac using ubuntu docker image)
+
+
+
+
+# OFFLINE DOCKERFILE:
+# Pull Python Image
+FROM python:3.10-slim
+
+# Read container port from .env file
+ARG CONTAINER_PORT
+ENV CONTAINER_PORT=$CONTAINER_PORT
+
+# Read offline build from --build-args in run.sh
+ARG OFFLINE_BUILD=0
+ENV OFFLINE_BUILD=${OFFLINE_BUILD}
+
+# Set work directory
+WORKDIR /app
+
+# Copy offline packages
+# Will be deleted if in prod pulling image
+COPY requirements.txt /app/requirements.txt
+COPY offline/linux_packages /offline/linux_packages
+COPY offline/pip_packages /offline/pip_packages
+
+# When offline use saved .deb and .whl files for ubuntu and pip packages
+RUN if [ "$OFFLINE_BUILD" = "1" ]; then \
+        echo "Using offline apt and pip packages..."; \
+        dpkg -i /offline/linux_packages/*.deb || true; \
+        apt-get -f install -y; \
+        pip3 install --no-index \
+            --find-links=/offline/pip_packages \
+            -r requirements.txt; \
+    else \
+        rm -rf /offline; \
+        apt-get update && apt-get install -y postgresql-client sudo passwd nano curl; \
+        pip3 install --upgrade pip; \
+        pip3 install -r requirements.txt; \
+    fi
+
+# # Update packages
+# RUN apt-get update && apt-get install -y postgresql-client sudo passwd nano curl
+
+# # Upgrade Pip
+# RUN pip3 install --upgrade pip
+
+# # Install dependencies
+# COPY requirements.txt /app/
+# RUN pip3 install -r requirements.txt
+
+# Copy project
+COPY . /app
+
+# Set environment variables
+ENV PIP_DISABLE_PIP_VERSION_CHECK=1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# Grant permissions to the entrypoint bash file
+COPY entry.sh /entry.sh
+RUN chmod +x /entry.sh
+
+# # Change container permissions
+RUN mkdir -p /app/staticfiles /app/media /app/logs
+RUN chown -R www-data:www-data /app
+RUN chmod -R 755 /app
+RUN chmod -R 775 /app/staticfiles /app/media /app/logs
+USER www-data
+
+# Run the entrypoint bash file
+ENTRYPOINT ["/entry.sh"]
+
+# Start the application using Gunicorn
+CMD gunicorn --bind 0.0.0.0:$CONTAINER_PORT project.wsgi:application
+
+# OFFLINE RUN_DEV.SH:
+#!/bin/bash
+
+set -e
+
+# Load the .env file
+source .env
+
+# Make sure permissions are still good for new update file
+chmod u+x run_dev.sh
+
+# Copy root files in case of updates
+cp .env db/.env
+cp .env web/.env
+cp .dockerignore db/.dockerignore
+cp .dockerignore web/.dockerignore
+cp -r offline web/offline
+
+# # Make sure volumes permissions are correct
+# groupadd staticgroup
+# usermod -aG staticgroup www-data
+
+# # Make sure the file paths exists with correct permissions
+# mkdir -p /srv/docker/social_media/staticfiles
+# mkdir -p /srv/docker/social_media/media
+# mkdir -p /srv/docker/social_media/logs
+# chown -R www-data:www-data /srv/docker/social_media
+
+echo "Development: using offline images and dependencies..."
+export OFFLINE_BUILD=1
+
+# Check if images already exist and loads .tar if not
+if [[ "$(docker images -q postgres:18)" == "" ]]; then \
+    echo "Images do not exists, loading from .tar file..."; \
+    docker load -i offline/python_postgres_images.tar; \
+else echo "Image already exists. Using old image..."; \
+fi
+
+# Rebuild the containers
+docker compose down
+docker compose -f docker-compose.yml build --build-arg OFFLINE_BUILD=1
+docker compose -f docker-compose.yml up -d
+
+exit

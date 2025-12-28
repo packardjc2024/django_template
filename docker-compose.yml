@@ -5,6 +5,7 @@ services:
   db:
     build: 
       context: ./db
+      # dockerfile: db/Dockerfile
     restart: always
     container_name: ${PROJECT_NAME}_db
     volumes:
@@ -20,6 +21,7 @@ services:
   web:
     build: 
       context: ./web
+      # dockrfile: web/Dockerfile
       args:
         CONTAINER_PORT: ${CONTAINER_PORT}
     user: "33:33" # linux for www-data:www-data and docker uses linux vm"
@@ -36,11 +38,17 @@ services:
       - db
     volumes:
       - ./web:/app
+      - media_volume:/app/media
+      - static_volume:/app/static
+      - logs_volume:/app/logs
     networks:
       - app_network
 
 volumes:
   postgres_data:
+  media_volume:
+  static_volume:
+  logs_volume:
 
 networks:
   app_network:

@@ -1,14 +1,15 @@
 # Pull Python Image
-FROM python:3.13-slim
+FROM python:3.10-slim
 
+# Read container port from .env file
 ARG CONTAINER_PORT
 ENV CONTAINER_PORT=$CONTAINER_PORT
 
 # Set work directory
 WORKDIR /app
 
-# Update packages
-RUN apt-get update && apt-get install -y postgresql-client sudo passwd nano curl
+# # Update packages
+# RUN apt-get update && apt-get install -y postgresql-client sudo passwd nano curl
 
 # Upgrade Pip
 RUN pip3 install --upgrade pip
