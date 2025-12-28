@@ -46,9 +46,7 @@ ALLOWED_HOSTS = [
     'test.programmingondemand.com'
 ]
 
-
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
