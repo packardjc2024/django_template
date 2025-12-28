@@ -1,9 +1,6 @@
 # Pull Python Image
 FROM postgres:18
 
-# Update packages
-# RUN apt-get update && apt-get install -y postgresql-client nano curl
-
 # Copy the .env file
 COPY .env /.env
 

@@ -36,6 +36,6 @@ sudo chown -R www-data:www-data /srv/docker/social_media
 
 # Rebuild the containers
 docker compose down
-docker compose up --build -d
+docker compose -f docker-compose.yml -f docker-compose.prod.yml up --build -d
 
 exit
