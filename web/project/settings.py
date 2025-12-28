@@ -165,8 +165,8 @@ else:
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
     SECURE_SSL_REDIRECT = True
     SECURE_HSTS_SECONDS = 31536000
-    SECURE_HSTS_PRELOAD = True
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
 
     ## Cookie Settings
     SESSION_COOKIE_SECURE = True
@@ -175,11 +175,15 @@ else:
     CSRF_COOKIE_SAMESITE = 'Strict'
 
     # Content Security Policy
-    CSP_DEFAULT_SRC = ("'self'", )
+    CSP_DEFAULT_SRC = ("'none'", )
     CSP_SCRIPT_SRC = ("'self'",)
     CSP_STYLE_SRC = ("'self'", )
     CSP_IMG_SRC = ("'self'",)
     CSP_FRAME_ANCESTORS = ("'self'",)
+
+    CSP_FONT_SRC = ("'self'",)
+    CSP_MEDIA_SRC = ("'self'",)
+    CSP_CONNECT_SRC = ("'self'",)
 
     #Logging
     logger_path = os.path.join(BASE_DIR, 'logs', 'django_logs.txt')
