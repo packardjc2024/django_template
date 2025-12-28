@@ -21,7 +21,7 @@ cp .dockerignore db/.dockerignore
 cp .dockerignore web/.dockerignore
 
 # Make Sure DEBUG = False in settings.py
-sed -i '' 's|^DEBUG[[:space:]]*=[[:space:]]*True[[:space:]]*#Bash_Target|DEBUG = False #Bash_Target|' "web/project/settings.py"
+sed -i 's|^DEBUG[[:space:]]*=[[:space:]]*True[[:space:]]*#Bash_Target|DEBUG = False #Bash_Target|' "web/project/settings.py"
 
 # Rebuild the containers
 docker compose down
