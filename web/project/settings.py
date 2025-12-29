@@ -46,6 +46,11 @@ ALLOWED_HOSTS = [
     'test.programmingondemand.com'
 ]
 
+# Login URLs
+# LOGIN_URL = '/account/'
+# LOGIN_REDIRECT_URL = '/' # Redirect to home page after logout
+# LOGOUT_REDIRECT_URL = '/account/'
+
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -55,8 +60,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'sri',
-    'home_page',
     'system_check',
+    'home_page',
+    'account',
 ]
 
 MIDDLEWARE = [
@@ -84,6 +90,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'project.global_context.add_global_context',
             ],
         },
     },
