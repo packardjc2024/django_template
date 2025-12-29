@@ -24,8 +24,8 @@ cp .dockerignore web/.dockerignore
 sed -i 's|^DEBUG[[:space:]]*=[[:space:]]*True[[:space:]]*#Bash_Target|DEBUG = False #Bash_Target|' "web/project/settings.py"
 
 # Rebuild the containers
-docker compose down
-docker compose -f docker-compose.yml -f docker-compose.prod.yml up --build -d
+# docker compose down
+# docker compose -f docker-compose.yml -f docker-compose.prod.yml up --build -d
 
 # Make sure volumes permissions are correct
 sudo groupadd staticgroup
