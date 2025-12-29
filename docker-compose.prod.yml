@@ -3,6 +3,7 @@
 
 services:
   web:
+    command: gunicorn --bind 0.0.0.0:$CONTAINER_PORT project.wsgi:application
     volumes:
       - /srv/docker/social_media/staticfiles:/app/staticfiles
       - /srv/docker/social_media/media:/app/media
