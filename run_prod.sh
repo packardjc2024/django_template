@@ -32,13 +32,13 @@ sudo groupadd staticgroup
 sudo usermod -aG staticgroup www-data
 
 # Make sure the file paths exists with correct permissions
-sudo mkdir -p /srv/docker/social_media/staticfiles
-sudo mkdir -p /srv/docker/social_media/media
-sudo mkdir -p /srv/docker/social_media/logs
-sudo chown -R www-data:www-data /srv/docker/social_media
+sudo mkdir -p /srv/docker/${PROJECT_NAME}/staticfiles
+sudo mkdir -p /srv/docker/${PROJECT_NAME}/media
+sudo mkdir -p /srv/docker/${PROJECT_NAME}/logs
+sudo chown -R www-data:www-data /srv/docker/${PROJECT_NAME}
 
 # Rebuild the containers
-docker compose down
+# docker compose down
 docker compose -f docker-compose.yml -f docker-compose.prod.yml up --build -d
 
 exit

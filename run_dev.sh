@@ -18,7 +18,6 @@ cp .dockerignore web/.dockerignore
 sed -i '' 's|^DEBUG[[:space:]]*=[[:space:]]*False[[:space:]]*#Bash_Target|DEBUG = True #Bash_Target|' "web/project/settings.py"
 
 # Rebuild the containers
-# docker compose down
 docker compose -f docker-compose.yml up --build -d
 
 exit

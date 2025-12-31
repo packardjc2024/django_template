@@ -1,5 +1,6 @@
 # The base file (used only in dev)
-# Add "-f docker-compose.prod.yml" for Prod
+# -f docker-compose.yml runs dev
+# -f docker-compose.yml -f docker-compose.prod.yml" for Prod
 
 services:
   db:
@@ -18,13 +19,12 @@ services:
       - app_network
 
   web:
-    # Only for dev for instant changes. reverts to Dockerfile in prod
     command: python3 manage.py runserver 0.0.0.0:${CONTAINER_PORT}
     build: 
       context: ./web
       args:
         CONTAINER_PORT: ${CONTAINER_PORT}
-    user: "33:33" # linux for www-data:www-data and docker uses linux vm"
+    user: "33:33" # linux for www-data:www-data and docker uses linux vm as well"
     restart: always
     healthcheck:
       test: ["CMD", "python3", "manage.py", "check"]
