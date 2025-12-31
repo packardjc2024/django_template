@@ -39,7 +39,7 @@ services:
     volumes:
       - ./web:/app
       - ./web/media_volume:/app/media
-      - ./web/static_volume:/app/static
+      - ./web/static_volume:/app/staticfiles
       - ./web/logs_volume:/app/logs
     networks:
       - app_network
