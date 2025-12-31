@@ -24,7 +24,6 @@ SECRET_KEY = os.getenv('DJANGO_SECRET')
 
 # Optionally use /account/ app for login
 USE_ACCOUNT = os.getenv("USE_ACCOUNT", "False").strip().lower() == "true"
-print(f"LOGIN_REQUIRED = {USE_ACCOUNT}")
 if USE_ACCOUNT:
     LOGIN_URL = '/account/'
     LOGIN_REDIRECT_URL = '/' # Redirect to home page after logout
