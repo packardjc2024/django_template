@@ -1,4 +1,12 @@
+"""
+This module sets the variables that can be used in any views context dictionary
+for rendering templates, including base.html
+"""
+
+
 from datetime import datetime
+from django.conf import settings
+
 
 def add_global_context(request):
     """
@@ -9,4 +17,5 @@ def add_global_context(request):
         'copyright_name': 'Copyright Name',
         'copyright_year': datetime.now().year,
         'site_logo_url': 'site_pictures/logo.png',
+        'login_required': settings.USE_ACCOUNT,
     }

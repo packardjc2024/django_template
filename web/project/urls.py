@@ -13,8 +13,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('system_check.urls')),
     path('', include('home_page.urls')),
-    path('account/', include('account.urls')),
 ]
+
+# Conditionally use account based on LOGIN_REQUIRED
+if settings.USE_ACCOUNT:
+    urlpatterns.append(path('account/', include('account.urls')))
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

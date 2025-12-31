@@ -38,8 +38,10 @@
         </div>
         <!-- Right side of the navbar -->
         <div id="nav-bar-right">
+            {% if use_account %}
             <a id="login-link" href="{% url 'account:index' %}">Login</a>
             <a id="logout-link" href="{% url 'account:user_logout' %}">Logout</a>
+            {% endif %}
         </div>
     </div>
 
