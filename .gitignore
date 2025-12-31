@@ -3,3 +3,7 @@ __pycache__
 .DS_Store
 staticfiles/
 venv
+web/logs/django_logs.txt
+web/logs_volume/
+web/media_volume/
+web/static_volume/
