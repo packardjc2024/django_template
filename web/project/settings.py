@@ -37,13 +37,18 @@ SRI_ENABLED = True
 ###############################################################################
 # Django Code
 ###############################################################################
+DOMAIN_NAME = os.getenv('DOMAIN_NAME')
 
 ALLOWED_HOSTS = [
-    '*',
+    'localhost',
     '127.0.0.1',
-    'www.test.programmingondemand.com',
-    'test.programmingondemand.com'
 ]
+
+if DOMAIN_NAME:
+    ALLOWED_HOSTS += [
+        DOMAIN_NAME,
+        f'www.{DOMAIN_NAME}',
+    ]
 
 # Application definition
 INSTALLED_APPS = [
