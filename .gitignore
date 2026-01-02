@@ -1,5 +1,6 @@
 .env
 .test_env
+test_nginx.txt
 __pycache__
 .DS_Store
 staticfiles/
