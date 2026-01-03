@@ -12,7 +12,8 @@
 ###############################################################################
 # Create the .env file
 ###############################################################################
-ENV_FILE=".test_env"
+ENV_FILE=".env"
+rm $ENV_FILE
 touch $ENV_FILE
 
 ###############################################################################
@@ -44,7 +45,7 @@ decrypt_secret(){
 ###############################################################################
 # Prompt for necessary info
 ###############################################################################
-CONTAINER_PORT="8000"
+CONTAINER_PORT="8006"
 PROJECT_NAME="social_media"
 CUSTOMER_NAME="test_customer"
 GH_USER="test user"
@@ -154,6 +155,7 @@ write_secret "GH_USER" "$ENCRYPTED_GH_USER"
 write_secret "GH_TOKEN" "$ENCRYPTED_GH_TOKEN"
 
 write_comment "[EMAIL]"
+write_secret "USE_EMAIL" "False"
 write_secret "EMAIL_USER" "$ENCRYPTED_EMAIL_USER"
 write_secret "EMAIL_PASSWORD" "$ENCRYPTED_EMAIL_PASSWORD"
 write_secret "EMAIL_PORT" "587"

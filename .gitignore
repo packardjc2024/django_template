@@ -1,5 +1,9 @@
 .env
+web/.env
+db/.env
 .test_env
+web/.test_env
+db/.test_env
 test_nginx.txt
 __pycache__
 .DS_Store

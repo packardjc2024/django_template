@@ -43,6 +43,7 @@ def signup(request):
     """
     """
     context = {}
+    # USE_EMAIL in settings.py is conditional accoutn for here 
     # if request.method == 'GET':
     #     return render(request, 'account/signup.html', context)
     # elif request.method == 'POST':

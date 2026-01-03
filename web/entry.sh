@@ -17,6 +17,11 @@ done
 
 touch /app/logs/django_logs.txt
 
+until pg_isready -h db -p 5432; do
+  echo "Waiting for database..."
+  sleep 1
+done
+
 # Collect static files
 python3 manage.py collectstatic --noinput
 

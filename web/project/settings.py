@@ -5,22 +5,24 @@ import os
 from pathlib import Path
 import subprocess
 from dotenv import load_dotenv
+from project.decryption import decrypt_secret
 
 
 # Set the base directory for the project
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 ###############################################################################
-# Import .env values
+# Import and decrypt .env values
 ###############################################################################
 SECRETS_PATH = Path.joinpath(BASE_DIR, '.env')
 load_dotenv(SECRETS_PATH)
-
+ENCRYPTION_KEY = os.getenv('ENCRYPTION_KEY')
 
 ###############################################################################
 # Security Settings
 ###############################################################################
-SECRET_KEY = os.getenv('DJANGO_SECRET')
+# SECRET_KEY = os.getenv('DJANGO_SECRET')
+SECRET_KEY = decrypt_secret(os.getenv("DJANGO_SECRET"), ENCRYPTION_KEY)
 
 # Optionally use /account/ app for login
 USE_ACCOUNT = os.getenv("USE_ACCOUNT", "False").strip().lower() == "true"
@@ -97,24 +99,24 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'project.wsgi.application'
 
+###############################################################################
 # Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
+###############################################################################
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'PORT': os.getenv('DB_PORT'),
         'NAME': os.getenv('DB_NAME'),
         'USER': os.getenv('DB_USER'),
-        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'PASSWORD': decrypt_secret(os.getenv("DB_PASSWORD"), ENCRYPTION_KEY),
         'HOST': os.getenv('DB_HOST'),
     }
 }
 
-
+###############################################################################
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
-
+###############################################################################
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -130,10 +132,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+###############################################################################
 # Internationalization
-# https://docs.djangoproject.com/en/5.1/topics/i18n/
-
+###############################################################################
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'America/New_York'
@@ -142,10 +143,9 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-
+###############################################################################
+# Static files
+###############################################################################
 STATIC_URL = '/static/' # How to serve static files in templates (source)
 MEDIA_URL = '/media/'
 
@@ -191,6 +191,7 @@ else:
     CSP_MEDIA_SRC = ("'self'",)
     CSP_CONNECT_SRC = ("'self'",)
 
+
     #Logging
     logger_path = os.path.join(BASE_DIR, 'logs', 'django_logs.txt')
     LOGGING = {
@@ -231,11 +232,15 @@ else:
         }
     }
 
+###############################################################################
 # Email Settings
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_PORT = int(os.getenv('EMAIL_PORT'))
-EMAIL_HOST = os.getenv('EMAIL_HOST')
-EMAIL_USER = os.getenv('EMAIL_HOST_USER')
-EMAIL_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
-EMAIL_USE_TLS = True # Use TLS
-EMAIL_USE_SSL = False # Set to False if using TLS on port 587
+###############################################################################
+USE_EMAIL = os.getenv("USE_EMAIL", "False").strip().lower() == "true"
+if USE_EMAIL:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_PORT = int(os.getenv('EMAIL_PORT'))
+    EMAIL_HOST = decrypt_secret(os.getenv("EMAIL_HOST"), ENCRYPTION_KEY)
+    EMAIL_USER = decrypt_secret(os.getenv("EMAIL_USER"), ENCRYPTION_KEY)
+    EMAIL_PASSWORD = decrypt_secret(os.getenv("EMAIL_PASSWORD"), ENCRYPTION_KEY)
+    EMAIL_USE_TLS = True # Use TLS
+    EMAIL_USE_SSL = False # Set to False if using TLS on port 587
