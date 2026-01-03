@@ -1,8 +1,6 @@
 #!/bin/bash
 set -e
 
-###### do i need to change postgres password as well???? ######
-
 source /.env
 
 decrypt_secret(){
