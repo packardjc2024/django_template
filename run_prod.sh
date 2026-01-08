@@ -6,6 +6,14 @@ source .env
 # Move into the project's root directory
 cd /home/developer/${PROJECT_NAME}
 
+# Decrypt secret values
+decrypt_secret(){
+    printf "%s\n" "$1" | \
+    openssl enc -aes-256-cbc -pbkdf2 -d -base64 -pass pass:"$2" 
+}
+GH_USER="$(decrypt_secret "$GH_USER" "$ENCRYPTION_KEY")"
+GH_TOKEN="$(decrypt_secret "$GH_TOKEN" "$ENCRYPTION_KEY")"
+
 # Pull the GitHub repository
 git stash
 git pull https://${GH_USER}:${GH_TOKEN}@github.com/${GH_USER}/${PROJECT_NAME}
