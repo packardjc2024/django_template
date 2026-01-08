@@ -25,6 +25,12 @@ server {
        		proxy_set_header X-Forwarded-Proto $scheme;
 	}
 
+	error_page 404 500 502 503 504 /custom_error.html;
+	location = /custom_error.html {
+		root /var/www/html;
+		internal;
+	}
+
 }
 
 server {
