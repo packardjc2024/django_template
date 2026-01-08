@@ -8,6 +8,8 @@ decrypt_secret(){
     openssl enc -aes-256-cbc -pbkdf2 -d -base64 -pass pass:"$2" 
 }
 
+DECRYPTED_PASSWORD="$(decrypt_secret "$DB_PASSWORD" "$ENCRYPTION_KEY")"
+
 # Start the PostgreSQL service and create the database and user
 psql -v ON_ERROR_STOP=1 --username $DB_USER --dbname postgres <<-EOSQL
     ALTER ROLE $DB_USER WITH ENCRYPTED PASSWORD '$DECRYPTED_PASSWORD';
