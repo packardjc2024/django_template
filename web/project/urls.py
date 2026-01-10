@@ -15,6 +15,7 @@ urlpatterns = [
     path('', include('home_page.urls')),
     path('docs/', include('docs.urls')),
     path('test_app/', include('test_app.urls')),
+    path('test_app_two/', include('test_app_two.urls')),
 ]
 
 # Conditionally use account based on LOGIN_REQUIRED

@@ -1,0 +1,18 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+
+<!-- Add the static files to the header block -->
+{% block header_extension %}
+<link rel="stylesheet" type="text/css" href='{% static "test_app_two/test_app_two.css" %}'>
+<script type="text/javascript" src="{% static 'test_app_two/test_app_two.js' %}"></script>
+{% endblock %}
+
+
+<!-- Add the index's content to the main header block -->
+{% block body_extension %}
+
+<p>test_app_two page under construction.</p>
+
+{% endblock %}

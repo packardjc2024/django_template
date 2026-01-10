@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'home_page',  # Home page of app
     'docs',
     'test_app',
+    'test_app_two',
 ]
 
 MIDDLEWARE = [

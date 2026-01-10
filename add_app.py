@@ -12,10 +12,20 @@ import os
 
 
 ###############################################################################
-# Define necessary variables
+# Get user input for the app name
 ###############################################################################
-APP_NAME = 'test_app'
+APP_NAME = input('APP Name: ').strip().replace(' ', '_').lower()
+# directory_prompt = f'You are currently in\n\t{os.getcwd()}\nIs this the django root? (y/n): '
+# correct_directory = input(directory_prompt).strip().lower()
+# if correct_directory == 'y':
+#     pass
+# else:
+#     root_string = input('Absolute path of django root: ').strip().lower()
+#     DJANGO_ROOT = Path(root_string)
 
+###############################################################################
+# Define necessary Paths
+###############################################################################
 DJANGO_ROOT = Path('web')
 MANAGE_PATH = DJANGO_ROOT.joinpath('manage.py')
 SETTINGS_PATH = DJANGO_ROOT.joinpath('project', 'settings.py')
