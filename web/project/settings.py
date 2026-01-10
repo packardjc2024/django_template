@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'account',  # My custom login app
     'home_page',  # Home page of app
     'docs',
+    'test_app',
 ]
 
 MIDDLEWARE = [
