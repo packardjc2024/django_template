@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'system_check',  # Third party for system checks
     'account',  # My custom login app
     'home_page',  # Home page of app
+    'docs',
 ]
 
 MIDDLEWARE = [
