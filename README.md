@@ -1,0 +1,1 @@
+A template to spin up a new dockerzied Django/PostgreSQL App. All that is needed is for a new .env file and everything else uses variables. The idea is for a vertical market type applicaiton where each client gets its own docker network. 
